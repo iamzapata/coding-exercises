@@ -1,0 +1,58 @@
+import scopechain from './scopechain.excalidraw.json'
+import { Excalidraw } from '@components'
+import { HEADING_LEVELS, HEADING_STYLES, Heading } from '@components/Heading'
+
+## What is the output of the following code?
+
+```js
+var num = 4
+
+function outer() {
+  var num = 2
+
+  function inner() {
+    num++
+    var num = 3
+    console.log(num)
+  }
+  inner()
+}
+
+outer()
+```
+
+###
+
+<Heading tag={HEADING_LEVELS.h2} textDecorationStyle={HEADING_STYLES.dotted}>
+  Answer
+</Heading>
+
+The output is `3`.
+
+### Explanation
+
+There are are three concepts that play a role in this question. **Scope**, **Closures**, and
+**Hoisting**.
+
+#### Variable Scope
+
+There are four scopes in JavaScript, Block Scope, Function Scope, Global Scope,
+and Module Scope. In this excercise, we are interested in the Function Scope,
+since `num` declarations are scoped to the wrappeing functions the appear in.
+
+You can learn more about scopes in the [JavaScript Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
+
+#### Closures
+
+Functions can access declarations that appear in an outer scope. When a function is called,
+and it retains access to variables declared outside of it, this is known as a closure.
+In this exercise we have three different declarations with the same name, `num`.
+
+#### Hoisting
+
+The first two `num` declarations don't have any effect
+in the inner function. The third declaration shadows the two above.
+It might seem as if each declaration is overriding the previous one, but
+in reality each one lies in its own scope. The first one in the global scope,
+
+<Excalidraw data={scopechain} name="closure-scope" />

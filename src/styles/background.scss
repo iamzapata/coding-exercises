@@ -1,0 +1,22 @@
+.PolkaDotBackground {
+  background-color: var(--color-background);
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size: 40px 40px;
+  background-position: -19px -19px;
+}
+
+body {
+  position: relative;
+  background-color: var(--color-background);
+}
+
+body::before {
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100vw;
+  position: absolute;
+  z-index: -100;
+
+  @extend .PolkaDotBackground;
+}
