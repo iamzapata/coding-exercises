@@ -1,0 +1,57 @@
+.Collapsible {
+  display: flex;
+  flex-direction: column;
+  /* will-change: transform; */
+
+  .CollapseChildren {
+    transition: 300ms ease-out all;
+    transform: translate(0px, 0px);
+    visibility: visible;
+    opacity: 1;
+    height: calc(100%);
+  }
+
+  &.isCollapsed .CollapseChildren {
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    transform: translate(0px, -10px);
+  }
+
+  &.isCollapsed .CollapseButtonText {
+    transform: rotate(90deg);
+  }
+
+  .CollapseButtonText {
+    transition: 0.3s ease-in-out all;
+    transform: rotate(180deg);
+    display: flex;
+    align-content: center;
+    justify-content: center;
+  }
+
+  .CollapsibleHeader {
+    display: flex;
+    align-content: center;
+    justify-content: flex-start;
+  }
+
+  .CollapseButton {
+    display: flex;
+    align-items: baseline;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .CollapseButtonTextWrapper {
+    display: inline-grid;
+    align-items: center;
+    box-shadow: var(--box-shadow-medium);
+    border-radius: var(--border-radius-round);
+    background-color: var(--color-gray-50);
+    height: 30px;
+    width: 30px;
+  }
+}

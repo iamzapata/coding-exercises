@@ -1,0 +1,21 @@
+.my-colors {
+  outline: 2px solid royalblue;
+  background: navy !important;
+}
+
+.my-crazy-code {
+  display: inline-block;
+  border-radius: 4px;
+  outline: dotted 1px;
+  transition: 0.2s;
+}
+
+.my-crazy-code:hover {
+  transform: scale(1.5) rotate(-14deg);
+}
+
+.sticky-code-block .ch-codeblock.not-prose {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-sticky;
+}

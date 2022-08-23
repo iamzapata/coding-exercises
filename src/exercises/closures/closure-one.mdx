@@ -1,58 +1,118 @@
 import scopechain from './scopechain.excalidraw.json'
-import { Excalidraw } from '@components'
+import { Answer, Excalidraw } from '@components'
 import { HEADING_LEVELS, HEADING_STYLES, Heading } from '@components/Heading'
+import { useState } from 'react'
 
 ## What is the output of the following code?
 
+<CH.Section className='sticky-code-block' >
 ```js
+
 var num = 4
 
 function outer() {
-  var num = 2
+var num = 2
 
-  function inner() {
-    num++
-    var num = 3
-    console.log(num)
-  }
-  inner()
+function inner() {
+num++
+var num = 3
+console.log(num)
+}
+
+inner()
 }
 
 outer()
-```
 
-###
+````
 
-<Heading tag={HEADING_LEVELS.h2} textDecorationStyle={HEADING_STYLES.dotted}>
-  Answer
+<Answer>
+The output is _`3`_.
+
+But why exactly is it _`3`_?
+
+<Heading tag={HEADING_LEVELS.h4} textDecorationStyle={HEADING_STYLES.dashed}>
+  Explanation
 </Heading>
 
-The output is `3`.
-
-### Explanation
-
-There are are three concepts that play a role in this question. **Scope**, **Closures**, and
+There are _three_ concepts that play a role in this question. **Scope**, **Closures**, and
 **Hoisting**.
 
-#### Variable Scope
+##### Variable Scope
+There are four scopes in JavaScript, **Block Scope**, **Function Scope**,
+**Global Scope**, and Module Scope. In this exercise, we are
+interested in the scope that functions create since the _` num`_ declarations are
+scoped to the wrapping functions they appear in.
 
-There are four scopes in JavaScript, Block Scope, Function Scope, Global Scope,
-and Module Scope. In this excercise, we are interested in the Function Scope,
-since `num` declarations are scoped to the wrappeing functions the appear in.
+Hello, [hover me](focus://1[1:11])
 
-You can learn more about scopes in the [JavaScript Scope](https://developer.mozilla.org/en-US/docs/Glossary/Scope)
+##### Closures
+Functions can access declarations that appear in a parent scope. When we invoke
+a function, we can retain access to variables declared outside of the function.
+We can refer to this behavior as a closure. In this exercise, we have three different
+declarations with the same name, _`num`_
 
-#### Closures
+##### Hoisting
+The first two `num` declarations, _`var num = 4`_, and _`var num = 2`_  don't have any effect
+in the inner function.
 
-Functions can access declarations that appear in an outer scope. When a function is called,
-and it retains access to variables declared outside of it, this is known as a closure.
-In this exercise we have three different declarations with the same name, `num`.
+The third declaration shadows the two above it and can be tricky to grasp in this
+exercise.
 
-#### Hoisting
+_`var num = 3`_
 
-The first two `num` declarations don't have any effect
-in the inner function. The third declaration shadows the two above.
 It might seem as if each declaration is overriding the previous one, but
-in reality each one lies in its own scope. The first one in the global scope,
+in reality, each one lies in its scope. The first one in the global scope,
 
 <Excalidraw data={scopechain} name="closure-scope" />
+
+</Answer>
+
+
+
+</CH.Section>
+
+```js focus=2 mark=4[12:18]
+console.log(1)
+console.log(2)
+console.log(3)
+// focus
+console.log(4)
+// link[1:8] http://foo.com
+console.log(5)
+console.log(6)
+// focus
+console.log(7)
+console.log(8)
+// mark
+console.log(9)
+````
+
+```js
+function lorem() {
+  // link[7:14] https://codehike.org
+  let tutorial = 'really nice tutorial'
+  // link[10:17] #mark-annotation
+  return tutorial
+}
+```
+
+```js
+// mark[7:11]
+class Lorem {
+  dolor(dorum) {
+    // mark[5:10]
+    return 'sit'
+  }
+}
+```
+
+```js
+// mark[13:31] my-colors
+console.log('This is Code Hike')
+```
+
+```js
+// withClass[13:22] my-crazy-code
+console.log('hover me')
+```

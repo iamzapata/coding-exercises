@@ -1,5 +1,6 @@
 import { keyMirror } from '@utils'
 import { Property } from 'csstype'
+import { CSSProperties } from 'react'
 
 export type HeadingTags = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type DecorationStylesNames = Property.TextDecorationStyle
@@ -7,6 +8,7 @@ export type DecorationStylesNames = Property.TextDecorationStyle
 export interface HeadingProps {
   tag?: HeadingTags
   textDecorationStyle?: DecorationStylesNames
+  styles: CSSProperties
   children: React.ReactNode
 }
 
@@ -39,10 +41,14 @@ export function Heading({
   children,
   textDecorationStyle,
   tag = 'h1',
+  styles,
 }: HeadingProps) {
   const HeadingEl = tag
 
-  const style = textDecorationStyle !== undefined ? { textDecorationStyle } : {}
+  const style =
+    textDecorationStyle !== undefined
+      ? { textDecorationStyle, textDecorationLine: 'underline' }
+      : {}
 
-  return <HeadingEl style={{ ...style }}>{children}</HeadingEl>
+  return <HeadingEl style={{ ...style, ...styles }}>{children}</HeadingEl>
 }
