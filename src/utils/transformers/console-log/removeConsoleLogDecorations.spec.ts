@@ -8,10 +8,10 @@ describe('removeConsoleLogDecorations', () => {
     }
     const result = removeConsoleLogDecorations(test.toString())
     expect(result.code).toEqual(
-      "function test() {\n  "+
-      "const someVar = 100;\n  "+
-      "console.log(\"Hello World\", someVar);\n"+
-      "}"
+      'function test() {\n  ' +
+        'const someVar = 100;\n  ' +
+        'console.log("Hello World", someVar);\n' +
+        '}'
     )
   })
 })

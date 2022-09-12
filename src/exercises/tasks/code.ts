@@ -1,4 +1,4 @@
-async function init() {
+export async function init() {
   const API_BASE = 'https://dog.ceo/api/breeds/image/random'
   async function fetchJsonAsync(url, id) {
     console.log('%ccalling fetchJsonAsync...', 'color: green', `(${id})`)
@@ -92,7 +92,4 @@ async function init() {
 
   const END = 'END'.padStart(15, '-').padEnd(30, '-')
   console.log(`%c${END}`, 'font-size: 14px')
-}
-export function InitCode() {
-  return <button onClick={() => init()}>Run</button>
 }
