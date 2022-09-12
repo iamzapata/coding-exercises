@@ -1,0 +1,180 @@
+import { InitCode } from './code'
+import excalidraw from './microtasks-and-macrotasks.excalidraw.json'
+import { Answer, Excalidraw } from '@components'
+import { HEADING_LEVELS, HEADING_STYLES, Heading } from '@components/Heading'
+
+### Take a look at the following code:
+
+<CH.Section>
+
+```js
+const API_BASE = 'https://dog.ceo/api/breeds/image/random'
+
+async function fetchJsonAsync(URL, id) {
+console.log(`calling fetchJsonAsync... (${id})`)
+
+    try {
+      const request = await fetch(URL, {
+        cache: 'force-cache',
+      })
+      const text = await request.text()
+      return JSON.parse(text)
+    } catch (error) {
+      console.error(error)
+    }
+
+}
+
+function fetchJsonViaPromises(URL, id) {
+console.log(
+`calling fetchJsonViaPromises... (${id})`
+)
+return fetch(URL, {
+cache: 'force-cache',
+})
+.then((request) => request.text())
+.then((text) => JSON.parse(text))
+.catch((error) => {
+console.error(error)
+})
+}
+
+const START = 'SYNC START'.padStart(20, '-').padEnd(30, '-')
+console.log(`${START}`)
+
+console.log('queue task')
+setTimeout(() =>
+console.log('setTimeout 1')
+)
+
+console.log('queue microtask')
+queueMicrotask(() =>
+console.log('micro 1')
+)
+
+fetchJsonViaPromises(API_BASE, 'using .then').then(() =>
+console.log('then -> fetchJsonViaPromises')
+)
+
+console.log('queue task')
+setTimeout(() =>
+console.log('setTimeout 2')
+)
+
+fetchJsonAsync(API_BASE, 'using .then').then(() => {
+console.log('then -> fetchJsonAsync')
+})
+
+console.log('queue microtask')
+queueMicrotask(() =>
+console.log('micro 2')
+)
+
+console.log('queue microtask')
+queueMicrotask(() =>
+console.log('micro 3')
+)
+
+const awaitAsyncResult = fetchJsonAsync(API_BASE, 'using await')
+console.log('after awaitAsyncResult')
+
+const awaitPromiseResult = fetchJsonViaPromises(API_BASE, 'using await')
+
+Promise.all([awaitAsyncResult, awaitPromiseResult]).then(() => {
+console.log('queue task')
+setTimeout(() =>
+console.log('setTimeout 3')
+)
+console.log('Promise.all')
+})
+
+console.log('queue microtask')
+queueMicrotask(() =>
+console.log('micro 4')
+)
+
+console.log('after awaitPromiseResult')
+
+const END = 'END'.padStart(15, '-').padEnd(30, '-')
+console.log(`${END}`)
+```
+
+</CH.Section>
+
+### In what order do you think the `console.log`'s will be executed?
+
+<Answer>
+
+The output is:
+
+<div>
+<CH.Section>
+```js
+----------------SYNC START----------------
+queue task
+queue microtask
+calling fetchJsonViaPromises... (using .then)
+after awaitAsyncResult
+calling fetchJsonAsync... (using await)
+after awaitPromiseResult
+queue microtask
+queue microtask
+queue microtask
+queue task
+---------------------END------------------
+```
+</CH.Section>
+</div>
+
+<Heading tag={HEADING_LEVELS.h4} textDecorationStyle={HEADING_STYLES.dashed}>
+  Explanation
+</Heading>
+
+<Excalidraw data={excalidraw} name="closure-scope" />
+
+</Answer>
+
+```js focus=2 mark=4[12:18]
+console.log(1)
+console.log(2)
+console.log(3)
+// focus
+console.log(4)
+// link[1:8] http://foo.com
+console.log(5)
+console.log(6)
+// focus
+console.log(7)
+console.log(8)
+// mark
+console.log(9)
+```
+
+```js
+function lorem() {
+  // link[7:14] https://codehike.org
+  let tutorial = 'really nice tutorial'
+  // link[10:17] #mark-annotation
+  return tutorial
+}
+```
+
+```js
+// mark[7:11]
+class Lorem {
+  dolor(dorum) {
+    // mark[5:10]
+    return 'sit'
+  }
+}
+```
+
+```js
+// mark[13:31] my-colors
+console.log('This is Code Hike')
+```
+
+```js
+// withClass[13:22] my-crazy-code
+console.log('hover me')
+```

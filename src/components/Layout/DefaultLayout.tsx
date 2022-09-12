@@ -6,7 +6,7 @@ interface DefaultLayoutProps {
 }
 export function DefaultLayout({ children }: DefaultLayoutProps) {
   return (
-    <div className={classNames('GridThree', styles.DefaultLayout,'p-4')}>
+    <div className={classNames('GridThree', styles.DefaultLayout, 'p-4')}>
       {children}
     </div>
   )
